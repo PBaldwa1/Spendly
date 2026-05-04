@@ -1,0 +1,5 @@
+To activate the venv -> source venv/Scripts/activate 
+To install libraries -> pip install -r requirements.txt 
+To run app -> python app.py
+
+Kill bash processes - taskkill /F /IM bash.exe
