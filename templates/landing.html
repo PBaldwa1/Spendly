@@ -24,7 +24,7 @@
         </p>
         <div class="hero-actions">
             <a href="{{ url_for('register') }}" class="btn-primary">Create free account</a>
-            <a href="#" class="btn-primary">See how it works</a>
+            <a href="#" class="btn-primary" id="open-how-modal">See how it works</a>
         </div>
     </div>
 
@@ -106,4 +106,58 @@
     </div>
 </section>
 
+<div id="how-modal" class="modal-overlay" aria-modal="true" role="dialog">
+    <div class="modal-box">
+        <button class="modal-close" id="modal-close-btn" aria-label="Close">&#x2715;</button>
+        <div class="modal-video-wrap">
+            <iframe
+                id="how-video"
+                src=""
+                data-src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+                title="See how Spendly works"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+    var modal    = document.getElementById('how-modal');
+    var video    = document.getElementById('how-video');
+    var openBtn  = document.getElementById('open-how-modal');
+    var closeBtn = document.getElementById('modal-close-btn');
+
+    function openModal() {
+        video.src = video.dataset.src;
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        video.src = '';
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        openModal();
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+}());
+</script>
 {% endblock %}
